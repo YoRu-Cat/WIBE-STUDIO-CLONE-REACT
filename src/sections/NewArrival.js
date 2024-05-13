@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
 import img1 from "../assets/Images/11.webp";
 import img2 from "../assets/Images/12.webp";
 import img3 from "../assets/Images/13.webp";
 import img4 from "../assets/Images/14.webp";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Section = styled.section`
   min-height: 100vh;
@@ -45,7 +47,7 @@ const Overlay = styled.div`
   width: 30vw;
   height: 90vh;
   z-index: 11;
-  box-shadow: 0 0 0 5vw ${(props) => props.theme.text};
+  box-shadow: 0 0 0 4vw ${(props) => props.theme.text};
   border: 3px solid ${(props) => props.theme.body};
 `;
 const Container = styled.div`
@@ -84,8 +86,61 @@ const Product = ({ img, title = "" }) => {
 };
 
 const NewArrival = () => {
+  gsap.registerPlugin(ScrollTrigger);
+
+  const ref = useRef(null);
+  const ScrollingRef = useRef(null);
+
+  useLayoutEffect(() => {
+    let element = ref.current;
+    let scrollingElement = ScrollingRef.current;
+
+    let t1 = gsap.timeline();
+    setTimeout(() => {
+      t1.to(element, {
+        scrollTrigger: {
+          trigger: element,
+          start: "top top",
+          end: "bottom+=100% top-=100%",
+          scroller: ".App", // locomotive element
+          scrub: true,
+          pin: true,
+          // markers: true,
+        },
+        // we have to increase scrolling height of this section same as the scrolling element width
+        ease: "none",
+      });
+
+      // Vertical scrolling
+      t1.fromTo(
+        scrollingElement,
+        {
+          y: "0",
+        },
+        {
+          y: "-100%",
+          scrollTrigger: {
+            trigger: scrollingElement,
+            start: "top top",
+            end: "bottom top",
+            scroller: ".App", // locomotive element
+            scrub: true,
+            // markers: true,
+          },
+          // we have to increase scrolling height of this section same as the scrolling element width
+        }
+      );
+    }, 1000);
+
+    ScrollTrigger.refresh();
+    return () => {
+      // clear instances
+      t1.kill();
+      ScrollTrigger.kill();
+    };
+  }, []);
   return (
-    <Section>
+    <Section ref={ref}>
       <Overlay />
       <Title
         data-scroll
@@ -95,11 +150,11 @@ const NewArrival = () => {
         New Arrivals
       </Title>
 
-      <Container>
-        <Product img={img1} title="Man Basics" />
-        <Product img={img2} title="Tops" />
-        <Product img={img3} title="Sweatshirts" />
-        <Product img={img4} title="Ethnic Wear" />
+      <Container ref={ScrollingRef}>
+        <Product img={img1} title="Man Denim" />
+        <Product img={img2} title="Cool Dresses" />
+        <Product img={img3} title="Jackets" />
+        <Product img={img4} title="T-shirts" />
         {/* <Product img={img5} title="Blazers" />
         <Product img={img6} title="Suits" />
         <Product img={img7} title="Antiques" />

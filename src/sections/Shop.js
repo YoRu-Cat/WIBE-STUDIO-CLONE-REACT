@@ -156,7 +156,10 @@ const Shop = () => {
     }, 1000);
 
     ScrollTrigger.refresh();
-    return () => {};
+    return () => {
+      t1.kill();
+      ScrollTrigger.kill();
+    };
   }, []);
 
   return (
