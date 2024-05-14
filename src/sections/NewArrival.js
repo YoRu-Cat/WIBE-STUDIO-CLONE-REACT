@@ -140,7 +140,7 @@ const NewArrival = () => {
     };
   }, []);
   return (
-    <Section ref={ref}>
+    <Section ref={ref} id="newArrivals">
       <Overlay />
       <Title
         data-scroll
