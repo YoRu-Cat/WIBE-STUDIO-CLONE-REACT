@@ -14,6 +14,10 @@ const NavContainer = styled(motion.div)`
   justify-content: center;
   align-items: center;
   transition: all ease 0.3s;
+
+  @media (max-width: 40em) {
+    top: ${(props) => (props.click ? "0" : `calc(-50vh - 4rem)`)};
+  }
 `;
 
 const MenuBtn = styled.li`
@@ -34,6 +38,10 @@ const MenuBtn = styled.li`
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
+  @media (max-width: 40em) {
+    width: 10rem;
+    height: 2rem;
+  }
 `;
 
 const MenuItems = styled(motion.ul)`
@@ -47,12 +55,21 @@ const MenuItems = styled(motion.ul)`
   align-items: center;
   width: 100%;
   padding: 0 10rem;
+  @media (max-width: 40em) {
+    flex-direction: column;
+    padding: 2rem 0;
+    height: 50vh;
+  }
 `;
 
 const MenuItem = styled(motion.li)`
   text-transform: uppercase;
   color: ${(props) => props.theme.text};
   cursor: pointer;
+  @media (max-width: 40em) {
+    flex-direction: column;
+    padding: 0.5rem 0;
+  }
 `;
 
 const NavBar = () => {
