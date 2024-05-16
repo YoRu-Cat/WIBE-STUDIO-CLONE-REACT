@@ -1,6 +1,7 @@
 {
   "name": "wibe-test",
   "version": "0.1.0",
+  "homepage": "https://YoRu-Cat.github.io/WIBE-STUDIO-CLONE-REACT",
   "private": true,
   "dependencies": {
     "@fontsource/kaushan-script": "^4.5.2",
